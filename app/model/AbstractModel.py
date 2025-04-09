@@ -1,5 +1,5 @@
 from dataclasses import dataclass, asdict, fields
-from app.database import executar_query
+from app.Database import executar_query
 from typing import Any, Self
 
 
@@ -56,6 +56,7 @@ class AbstractModel:
         executar_query(query, parametros)
 
     def __obter_dados(self):
+        self._validar_dados()
         atributos_filtrados = {
             chave: valor for chave, valor in asdict(self).items() if valor is not None
         }
@@ -63,7 +64,7 @@ class AbstractModel:
 
         return nome_classe, atributos_filtrados
 
-    def validar_dados(self):
+    def _validar_dados(self):
         for campo in fields(self):
             valor = getattr(self, campo.name)
 
@@ -81,4 +82,4 @@ class AbstractModel:
         if "id" not in asdict(self):
             raise NotImplementedError("Implemente o atributo id na classe")
             
-        self.validar_dados()
+        self._validar_dados()

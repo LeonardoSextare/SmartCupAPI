@@ -33,5 +33,7 @@ def executar_query(query: str, variaveis: Optional[Tuple[Any, ...]] = None) -> d
                 return dict(resultados[0])
 
             return [dict(registro) for registro in resultados]
+    except Exception as e:
+        ...
     finally:
         conexao.close()
