@@ -1,15 +1,18 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from decimal import Decimal
-from typing import Optional
+from app.model.AbstractModel import AbstractModel
 
 
 @dataclass
-class Operacao:
-    id: Optional[int] = None
-    data_operacao: datetime = field(default_factory=datetime.utcnow)
-    cliente_id: int = 0
-    maquina_id: int = 0
-    copo_id: int = 0
-    bebida_id: int = 0
-    saldo_gasto: Decimal = Decimal("0.00")
+class Operacao(AbstractModel):
+    saldo_gasto: Decimal
+    cliente_id: int
+    maquina_id: int
+    copo_id: int
+    bebida_id: int
+    data_operacao: datetime = datetime.now()
+    id: int | None = None
+
+teste = Operacao(Decimal("10.11"), cliente_id=3, maquina_id=1, copo_id=1, bebida_id=1)
+teste.salvar()

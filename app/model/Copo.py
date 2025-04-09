@@ -1,13 +1,19 @@
-from dataclasses import field
+
+from dataclasses import dataclass
 from datetime import datetime
 from decimal import Decimal
-from typing import Optional
+from app.model.AbstractModel import AbstractModel
 
-
-class Copo:
-    id: Optional[int] = None
-    capacidade: Decimal = Decimal("0.00")
-    data_criacao: datetime = field(default_factory=datetime.utcnow)
-    ativo: bool = True
+@dataclass
+class Copo(AbstractModel):
+    capacidade: Decimal
+    codigo_nfc: str
     permite_alcool: bool = False
-    codigo_nfc: str = ""
+    data_criacao: datetime = datetime.now()
+    ativo: bool = True
+    id: int | None = None
+
+
+teste = Copo(Decimal(200), "ab2")
+print(teste)
+teste.salvar()

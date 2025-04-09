@@ -1,11 +1,14 @@
 from dataclasses import dataclass
 from decimal import Decimal
-from typing import Optional
+from app.model.AbstractModel import AbstractModel
+
 
 @dataclass
-class Maquina:
-    id: Optional[int] = None
+class Maquina(AbstractModel):
+    nome: str
+    bebida_id: int | None = None
     qtd_reservatorio_max: Decimal = Decimal("0.00")
     qtd_reservatorio_atual: Decimal = Decimal("0.00")
-    bebida_id: int = 0
     ativo: bool = True
+    id: int | None = None
+
