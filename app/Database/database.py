@@ -16,24 +16,26 @@ def __obter_conexao():
     return conexao
 
 
-def executar_query(query: str, variaveis: Optional[Tuple[Any, ...]] = None) -> dict[Any, Any] | list[dict[Any, Any]] | Literal[True]:
+def executar_query(
+    query: str, variaveis: Optional[Tuple[Any, ...]] = None
+) -> dict[Any, Any] | list[dict[Any, Any]]:
     conexao = __obter_conexao()
     try:
         with conexao.cursor(cursor_factory=RealDictCursor) as cursor:
             cursor.execute(query, variaveis)
-            
-            if cursor.description is None:
-                conexao.commit()
-                return True
-            
-            resultados = cursor.fetchall()
+
+            resultados = []
+            if cursor.description is not None:
+                resultados = cursor.fetchall()
+                print(resultados)
+
+                resultados = [dict(registro) for registro in resultados]
+                if len(resultados) == 1:
+                    resultados = resultados[0]
+
             conexao.commit()
+            return resultados
 
-            if len(resultados) == 1:
-                return dict(resultados[0])
-
-            return [dict(registro) for registro in resultados]
-    except Exception as e:
-        ...
     finally:
         conexao.close()
+
