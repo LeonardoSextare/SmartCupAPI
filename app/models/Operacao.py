@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from decimal import Decimal
-from app.model.AbstractModel import AbstractModel
+from app.models.AbstractModel import AbstractModel
 
 
 @dataclass
@@ -13,6 +13,3 @@ class Operacao(AbstractModel):
     bebida_id: int
     data_operacao: datetime = datetime.now()
     id: int | None = None
-
-teste = Operacao(Decimal("10.11"), cliente_id=3, maquina_id=1, copo_id=1, bebida_id=1)
-teste.salvar()
