@@ -1,8 +1,8 @@
 from os import getenv
-from typing import Any, Literal, Optional, Tuple
-
+from typing import Any, Optional, Tuple
 import psycopg2 as db
 from psycopg2.extras import RealDictCursor
+from psycopg2.errors import *
 
 
 def __obter_conexao():
@@ -38,4 +38,3 @@ def executar_query(
 
     finally:
         conexao.close()
-
