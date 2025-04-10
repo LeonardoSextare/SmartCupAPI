@@ -1,5 +1,5 @@
 from dataclasses import dataclass, asdict, fields
-from app.database import executar_query
+from database import executar_query
 from typing import Any, Self
 
 

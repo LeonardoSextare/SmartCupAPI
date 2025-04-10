@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from decimal import Decimal
-from app.builders.AbstractModel import AbstractModel
+from builders.AbstractModel import AbstractModel
 
 @dataclass
 class Copo(AbstractModel):

@@ -2,7 +2,7 @@
 from typing import Type, Optional, Dict, Any
 from pydantic import BaseModel, create_model
 from dataclasses import fields as dataclass_fields
-from app.builders.AbstractModel import AbstractModel
+from builders.AbstractModel import AbstractModel
 
 def gerar_schema_entrada(model_cls: Type[AbstractModel]) -> Type[BaseModel]:
     campos: Dict[str, Any] = {}

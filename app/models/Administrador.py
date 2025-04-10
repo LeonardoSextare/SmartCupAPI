@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from app.builders.AbstractModel import AbstractModel
+from builders.AbstractModel import AbstractModel
 
 
 @dataclass
