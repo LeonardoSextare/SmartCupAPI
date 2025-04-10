@@ -1,10 +1,12 @@
 from dataclasses import dataclass, asdict, fields
 from database import executar_query
-from typing import Any, Self
+from typing import Any, Self, get_args
 
 
 @dataclass
 class AbstractModel:
+    _relacionamentos_resolvidos = []
+
     def salvar(self):
         if self.id is None:
             self._criar()
@@ -21,20 +23,42 @@ class AbstractModel:
 
         instancia = cls(**resultado)
 
+        instancia._resolver_relacionamentos()
+
         return instancia
-    
+
     @classmethod
     def listar(cls):
         query = f"SELECT * FROM {cls.__name__}"
         resultado = executar_query(query)
 
-        print(*resultado, sep='\n')
-        
-        lista_administradores = [cls(**administrador) for administrador in resultado]
+        if not isinstance(resultado, list):
+            resultado = [resultado]
+
+        lista_administradores = []
+        for administrador in resultado:
+            instancia = cls(**administrador)
+            instancia._resolver_relacionamentos()
+            lista_administradores.append(instancia)
 
         return lista_administradores
-    
-    
+
+    def _resolver_relacionamentos(self):
+        for campo in fields(self):
+            valor_campo = getattr(self, campo.name)
+            
+            if campo.name in self._relacionamentos_resolvidos:
+                continue
+            
+            if valor_campo is None or not isinstance(valor_campo, int):
+                continue
+
+            for tipo in get_args(campo.type):
+                if issubclass(tipo, AbstractModel):
+                    instancia = tipo.obter(getattr(self, campo.name))
+                    setattr(self, campo.name, instancia)
+                    self._relacionamentos_resolvidos.append(campo.name)
+
     def _criar(self):
         tabela, dados = self.__obter_dados()
 
@@ -58,7 +82,9 @@ class AbstractModel:
     def __obter_dados(self):
         self._validar_dados()
         atributos_filtrados = {
-            chave: valor for chave, valor in asdict(self).items() if valor is not None
+            chave: valor
+            for chave, valor in asdict(self).items()
+            if valor is not None or not chave.startswith("_")
         }
         nome_classe = self.__class__.__name__
 
@@ -81,5 +107,5 @@ class AbstractModel:
     def __post_init__(self):
         if "id" not in asdict(self):
             raise NotImplementedError("Implemente o atributo id na classe")
-            
+
         self._validar_dados()

@@ -27,7 +27,6 @@ def executar_query(
             resultados = []
             if cursor.description is not None:
                 resultados = cursor.fetchall()
-                print(resultados)
 
                 resultados = [dict(registro) for registro in resultados]
                 if len(resultados) == 1:
