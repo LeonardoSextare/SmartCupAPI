@@ -1,15 +1,17 @@
--- Active: 1743954815830@@aws-0-sa-east-1.pooler.supabase.com@6543@postgres@public
+-- Active: 1744289855657@@127.0.0.1@5432@smartcupapilocal@public
 
 CREATE TABLE bebida (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     descricao TEXT,
     preco NUMERIC(10, 2) NOT NULL,
-    alcolica BOOLEAN NOT NULL DEFAULT FALSE
+    alcolica BOOLEAN NOT NULL DEFAULT FALSE,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE maquina (
     id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
     qtd_reservatorio_max NUMERIC(10, 2) NOT NULL,
     qtd_reservatorio_atual NUMERIC(10, 2) NOT NULL,
     bebida_id INTEGER NOT NULL,

@@ -30,17 +30,15 @@ app.include_router(endpoint_administrador, prefix="/administrador", tags=["Admin
 endpoint_cliente = criar_endpoint_dinamicamente(Cliente)
 app.include_router(endpoint_cliente, prefix="/cliente", tags=["Cliente"])
 
-endpoint_maquina = criar_endpoint_dinamicamente(Maquina)
-app.include_router(endpoint_maquina, prefix="/maquina", tags=["Maquina"])
+endpoint_copo = criar_endpoint_dinamicamente(Copo)
+app.include_router(endpoint_copo, prefix="/copo", tags=["Copo"])
 
 endpoint_bebida = criar_endpoint_dinamicamente(Bebida)
 app.include_router(endpoint_bebida, prefix="/bebida", tags=["Bebida"])
 
-endpoint_copo = criar_endpoint_dinamicamente(Copo)
-app.include_router(endpoint_copo, prefix="/copo", tags=["Copo"])
+endpoint_maquina = criar_endpoint_dinamicamente(Maquina)
+app.include_router(endpoint_maquina, prefix="/maquina", tags=["Maquina"])
 
 endpoint_operacao = criar_endpoint_dinamicamente(Operacao)
 app.include_router(endpoint_operacao, prefix="/operacao", tags=["Operacao"])
-
-
 
