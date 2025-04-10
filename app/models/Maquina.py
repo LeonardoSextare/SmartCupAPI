@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from decimal import Decimal
-from app.models.AbstractModel import AbstractModel
+from app.builders.AbstractModel import AbstractModel
 
 
 @dataclass

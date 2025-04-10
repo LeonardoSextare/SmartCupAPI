@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from decimal import Decimal
-from app.models.AbstractModel import AbstractModel
+from app.builders.AbstractModel import AbstractModel
 
 
 @dataclass

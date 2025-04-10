@@ -1,5 +1,5 @@
 from typing import Type, TypeVar, List
-from app.models.AbstractModel import AbstractModel
+from app.builders.AbstractModel import AbstractModel
 
 T = TypeVar("T", bound=AbstractModel)
 

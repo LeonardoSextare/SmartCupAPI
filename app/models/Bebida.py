@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from decimal import Decimal
 from typing import Optional
-from app.models.AbstractModel import AbstractModel
+from app.builders.AbstractModel import AbstractModel
 
 
 @dataclass

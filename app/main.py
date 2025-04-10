@@ -1,6 +1,6 @@
 from config import carregar_env
 from fastapi import FastAPI
-from app.Endpoint import criar_endpoint_dinamicamente
+from app.builders.Endpoint import criar_endpoint_dinamicamente
 from app.models.Administrador import Administrador
 from app.models.Cliente import Cliente
 from app.models.Bebida import Bebida

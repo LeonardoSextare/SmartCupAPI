@@ -1,9 +1,9 @@
 # app/routers/dynamic_crud_router.py
 from fastapi import APIRouter, HTTPException, status
 from typing import List, Type
-from app.Controller import ControllerGenerico
-from app.models.AbstractModel import AbstractModel
-from app.Schemas import gerar_schema_entrada, gerar_schema_saida, gerar_schema_atualizar
+from app.builders.Controller import ControllerGenerico
+from app.builders.AbstractModel import AbstractModel
+from app.builders.Schemas import gerar_schema_entrada, gerar_schema_saida, gerar_schema_atualizar
 
 def criar_endpoint_dinamicamente(model_cls: Type[AbstractModel]) -> APIRouter:
     endpoint = APIRouter()
