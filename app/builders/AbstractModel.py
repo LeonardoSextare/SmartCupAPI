@@ -24,7 +24,8 @@ class AbstractModel:
         instancia = cls(**resultado)
 
         instancia._resolver_relacionamentos()
-
+        cls._relacionamentos_resolvidos.clear()
+        
         return instancia
 
     @classmethod
@@ -58,6 +59,7 @@ class AbstractModel:
                     instancia = tipo.obter(getattr(self, campo.name))
                     setattr(self, campo.name, instancia)
                     self._relacionamentos_resolvidos.append(campo.name)
+            
 
     def _criar(self):
         tabela, dados = self.__obter_dados()
