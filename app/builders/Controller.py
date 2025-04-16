@@ -1,16 +1,20 @@
-from typing import Type, TypeVar, List
+from typing import Type, TypeVar, List, Optional
 from builders.AbstractModel import AbstractModel
 
 T = TypeVar("T", bound=AbstractModel)
 
 class ControllerGenerico:
-    def __init__(self, model_cls: Type[T]):
+    def __init__(self, model_cls: Type[T], service: Optional[object] = None):
         self.model_cls = model_cls
+        self.service = service
 
     def criar(self, data: dict) -> T:
-        instancia: T = self.model_cls(**data)
-        instancia.salvar()
-        return instancia
+        if self.service and hasattr(self.service, "realizar_operacao"):
+            return self.service.realizar_operacao(data=data)
+        else:
+            instancia: T = self.model_cls(**data)
+            instancia.salvar()
+            return instancia
 
     def obter(self, id: int) -> T:
         return self.model_cls.obter(id)
@@ -22,5 +26,5 @@ class ControllerGenerico:
         instancia = self.obter(id)
         for chave, valor in data.items():
             setattr(instancia, chave, valor)
-        instancia.salvar() 
+        instancia.salvar()
         return instancia

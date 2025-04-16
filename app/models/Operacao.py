@@ -10,10 +10,10 @@ from models.Bebida import Bebida
 
 @dataclass
 class Operacao(AbstractModel):
-    saldo_gasto: Decimal
     cliente_id: int | Cliente
     copo_id: int | Copo
-    bebida_id: int | Bebida
     maquina_id: int | Maquina
     data_operacao: datetime = datetime.now()
+    bebida_id: int | Bebida | None = None
+    saldo_gasto: None | Decimal = None
     id: int | None = None

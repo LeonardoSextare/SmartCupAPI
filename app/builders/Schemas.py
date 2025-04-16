@@ -7,10 +7,10 @@ def gerar_schema_entrada(model_cls: Type[AbstractModel]) -> Type[BaseModel]:
     campos: Dict[str, Any] = {}
     
     for campo in fields(model_cls):
-        if campo.name == "id":
+        if campo.name == "id" or campo.default is None or campo.name == "data_operacao":
             continue
         campos[campo.name] = (campo.type, ...)
-    
+        
     return create_model(f"{model_cls.__name__}Entrada", **campos)
 
 def gerar_schema_saida(model_cls: Type[AbstractModel]) -> Type[BaseModel]:

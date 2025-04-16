@@ -7,7 +7,7 @@ from models.Bebida import Bebida
 from models.Copo import Copo
 from models.Maquina import Maquina
 from models.Operacao import Operacao
-
+from services.OperacaoService import OperacaoService
 
 carregar_env()
 
@@ -39,6 +39,6 @@ app.include_router(endpoint_bebida, prefix="/bebida", tags=["Bebida"])
 endpoint_maquina = criar_endpoint_dinamicamente(Maquina)
 app.include_router(endpoint_maquina, prefix="/maquina", tags=["Maquina"])
 
-endpoint_operacao = criar_endpoint_dinamicamente(Operacao)
+endpoint_operacao = criar_endpoint_dinamicamente(Operacao, service=OperacaoService())
 app.include_router(endpoint_operacao, prefix="/operacao", tags=["Operacao"])
 

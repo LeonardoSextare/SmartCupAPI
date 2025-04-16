@@ -22,9 +22,6 @@ class AbstractModel:
             raise ValueError(f'O id "{id}" não foi encontrado na tabela: "{cls.__name__}"')
 
         instancia = cls(**resultado)
-
-        instancia._resolver_relacionamentos()
-        cls._relacionamentos_resolvidos.clear()
         
         return instancia
 
@@ -39,9 +36,8 @@ class AbstractModel:
         lista_administradores = []
         for administrador in resultado:
             instancia = cls(**administrador)
-            instancia._resolver_relacionamentos()
             lista_administradores.append(instancia)
-
+        
         return lista_administradores
 
     def _resolver_relacionamentos(self):
@@ -63,7 +59,6 @@ class AbstractModel:
 
     def _criar(self):
         tabela, dados = self.__obter_dados()
-
         colunas = ", ".join(dados.keys())
         placeholders = ", ".join(["%s"] * len(dados))
         query = f"INSERT INTO {tabela} ({colunas}) VALUES ({placeholders}) RETURNING id"
@@ -86,7 +81,7 @@ class AbstractModel:
         atributos_filtrados = {
             chave: valor
             for chave, valor in asdict(self).items()
-            if valor is not None or not chave.startswith("_")
+            if valor is not None
         }
         nome_classe = self.__class__.__name__
 
@@ -104,6 +99,8 @@ class AbstractModel:
                 )
 
     def to_dict(self) -> dict[str, Any]:
+        self._resolver_relacionamentos()
+        self._relacionamentos_resolvidos.clear()
         return asdict(self)
 
     def __post_init__(self):
