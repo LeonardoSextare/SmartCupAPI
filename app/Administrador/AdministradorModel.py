@@ -3,7 +3,7 @@ from builders.AbstractModel import AbstractModel
 
 
 @dataclass
-class Administrador(AbstractModel):
+class AdministradorModel(AbstractModel):
     nome: str
     login: str
     senha: str

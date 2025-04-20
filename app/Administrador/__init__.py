@@ -1,0 +1,1 @@
+from .AdministradorEndpoint import endpoint as administrador_endpoint
