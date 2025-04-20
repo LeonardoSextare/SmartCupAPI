@@ -1,0 +1,1 @@
+from .BebidaEndpoint import endpoint as bebida_endpoint
