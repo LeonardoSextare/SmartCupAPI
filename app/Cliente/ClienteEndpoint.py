@@ -19,8 +19,7 @@ def criar(cliente: ClienteEntrada):
                 "p_nome": cliente.nome,
                 "p_cpf": cliente.cpf,
                 "p_data_nascimento": cliente.data_nascimento.isoformat(),
-                "p_saldo_restante": cliente.saldo_restante,
-                "p_ativo": cliente.ativo,
+                "p_saldo_restante": 0,
             },
         ).execute()
 

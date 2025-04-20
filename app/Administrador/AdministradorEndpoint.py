@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 from supabase_api import supabase
-from .AdministradorSchemas import AdministradorEntrada, AdministradorSaida, AdministradorSaidaLista
+from .AdministradorSchemas import AdministradorEntrada, AdministradorEntradaPatch, AdministradorSaida, AdministradorSaidaLista
 
 endpoint = APIRouter()
 
@@ -69,7 +69,7 @@ def obter(id: int):
     response_model=AdministradorSaida,
     summary=f"Atualiza completamente ou parcialmente um Administrador pelo ID",
 )
-def atualizar(id: int, administrador: AdministradorEntrada):  # type: ignore
+def atualizar(id: int, administrador: AdministradorEntradaPatch):  # type: ignore
     try:
         parametros = {"p_id": id}
 

@@ -2,6 +2,12 @@ from pydantic import BaseModel
 from typing import Optional
 
 class AdministradorEntrada(BaseModel):
+    nome: str
+    login: str
+    senha: str
+
+
+class AdministradorEntradaPatch(BaseModel):
     nome: Optional[str]
     login: Optional[str]
     senha: Optional[str]
