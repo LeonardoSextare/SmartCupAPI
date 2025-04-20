@@ -1,5 +1,6 @@
 from config import carregar_env
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from Administrador import administrador_endpoint
 from Cliente import cliente_endpoint
 from Bebida import bebida_endpoint
@@ -20,6 +21,13 @@ app = FastAPI(
     version="2.0.0",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],  # ou ["GET","POST","PUT","PATCH","DELETE","OPTIONS"]
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
 def ola_mundo():
@@ -37,5 +45,3 @@ app.include_router(copo_endpoint, prefix="/copo", tags=["Copo"])
 app.include_router(maquina_endpoint, prefix="/maquina", tags=["Maquina"])
 
 endpoint_operacao = criar_endpoint_dinamicamente(Operacao, service=OperacaoService())
-
-
