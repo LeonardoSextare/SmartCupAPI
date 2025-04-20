@@ -1,5 +1,3 @@
--- Active: 1744289855657@@127.0.0.1@5432@smartcupapilocal@public
-
 CREATE TABLE bebida (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -7,6 +5,26 @@ CREATE TABLE bebida (
     preco NUMERIC(10, 2) NOT NULL,
     alcolica BOOLEAN NOT NULL DEFAULT FALSE,
     ativo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE cliente (
+    id SERIAL PRIMARY KEY,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    saldo_restante NUMERIC(10, 2) NOT NULL DEFAULT 0
+);
+
+CREATE TABLE copo (
+    id SERIAL PRIMARY KEY,
+    capacidade NUMERIC(10, 2) NOT NULL,
+    data_criacao TIMESTAMP NOT NULL DEFAULT NOW(),
+    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    permite_alcool BOOLEAN NOT NULL DEFAULT FALSE,
+    codigo_nfc VARCHAR(50) NOT NULL UNIQUE,
+    cliente_id INTEGER NOT NULL,
+    CONSTRAINT fk_cliente_copo FOREIGN KEY (cliente_id) REFERENCES cliente (id) ON DELETE RESTRICT
 );
 
 CREATE TABLE maquina (
@@ -17,24 +35,6 @@ CREATE TABLE maquina (
     bebida_id INTEGER NOT NULL,
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT fk_bebida_maquina FOREIGN KEY (bebida_id) REFERENCES bebida (id) ON DELETE RESTRICT
-);
-
-CREATE TABLE copo (
-    id SERIAL PRIMARY KEY,
-    capacidade NUMERIC(10, 2) NOT NULL,
-    data_criacao TIMESTAMP NOT NULL DEFAULT NOW(),
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
-    permite_alcool BOOLEAN NOT NULL DEFAULT FALSE,
-    codigo_nfc VARCHAR(50) NOT NULL UNIQUE
-);
-
-CREATE TABLE cliente (
-    id SERIAL PRIMARY KEY,
-    ativo BOOLEAN NOT NULL DEFAULT TRUE,
-    nome VARCHAR(100) NOT NULL,
-    cpf VARCHAR(14) NOT NULL,
-    data_nascimento DATE NOT NULL,
-    saldo_restante NUMERIC(10, 2) NOT NULL DEFAULT 0
 );
 
 CREATE TABLE administrador (
