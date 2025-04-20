@@ -1,0 +1,1 @@
+from .ClienteEndpoint import endpoint as cliente_endpoint

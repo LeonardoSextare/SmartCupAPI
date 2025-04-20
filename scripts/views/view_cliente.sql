@@ -1,6 +1,2 @@
-CREATE OR REPLACE VIEW  listar_cliente AS
-SELECT row_to_json(t) as clientes
-FROM (
+CREATE OR REPLACE VIEW listar_cliente AS
 SELECT * FROM cliente
-) as t;
-

@@ -1,6 +1,7 @@
 from config import carregar_env
 from fastapi import FastAPI
 from Administrador import administrador_endpoint
+from Cliente import cliente_endpoint
 from builders.Endpoint import criar_endpoint_dinamicamente
 from models.Bebida import Bebida
 from models.Cliente import Cliente
@@ -27,11 +28,8 @@ def ola_mundo():
 
 
 app.include_router(administrador_endpoint, prefix="/administrador", tags=["Administrador"])
+app.include_router(cliente_endpoint, prefix="/cliente", tags=["Cliente"])
 # app.include_router(endpoint_operacao, prefix="/operacao", tags=["Operacao"])
-
-
-endpoint_cliente = criar_endpoint_dinamicamente(Cliente)
-app.include_router(endpoint_cliente, prefix="/cliente", tags=["Cliente"])
 
 endpoint_copo = criar_endpoint_dinamicamente(Copo)
 app.include_router(endpoint_copo, prefix="/copo", tags=["Copo"])
