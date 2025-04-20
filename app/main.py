@@ -8,7 +8,7 @@ from models.Copo import Copo
 from models.Maquina import Maquina
 from models.Bebida import Bebida
 from models.Operacao import Operacao
-from Operacao.OperacaoService import OperacaoService
+from Operacao import OperacaoService
 
 
 carregar_env()
@@ -27,6 +27,7 @@ def ola_mundo():
 
 
 app.include_router(administrador_endpoint, prefix="/administrador", tags=["Administrador"])
+# app.include_router(endpoint_operacao, prefix="/operacao", tags=["Operacao"])
 
 
 endpoint_cliente = criar_endpoint_dinamicamente(Cliente)
@@ -42,5 +43,4 @@ endpoint_maquina = criar_endpoint_dinamicamente(Maquina)
 app.include_router(endpoint_maquina, prefix="/maquina", tags=["Maquina"])
 
 endpoint_operacao = criar_endpoint_dinamicamente(Operacao, service=OperacaoService())
-# app.include_router(endpoint_operacao, prefix="/operacao", tags=["Operacao"])
 
