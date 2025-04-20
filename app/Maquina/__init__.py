@@ -1,0 +1,1 @@
+from .MaquinaEndpoint import endpoint as maquina_endpoint
