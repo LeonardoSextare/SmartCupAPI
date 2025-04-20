@@ -20,7 +20,6 @@ def criar(administrador: AdministradorEntrada):
                     "p_nome": administrador.nome,
                     "p_login": administrador.login,
                     "p_senha": administrador.senha,
-                    "p_ativo": administrador.ativo,
                 },
             )
             .execute()
