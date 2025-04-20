@@ -17,9 +17,10 @@ def criar(administrador: AdministradorEntrada):
             supabase.rpc(
                 "inserir_administrador",
                 {
-                    "p_nome": f"{administrador.nome}",
-                    "p_login": f"{administrador.login}",
-                    "p_senha": f"{administrador.senha}",
+                    "p_nome": administrador.nome,
+                    "p_login": administrador.login,
+                    "p_senha": administrador.senha,
+                    "p_ativo": administrador.ativo,
                 },
             )
             .execute()
@@ -27,7 +28,7 @@ def criar(administrador: AdministradorEntrada):
         )
 
         return retorno
-    
+
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
@@ -44,7 +45,7 @@ def listar():
         resultado = {"quantidade": len(retorno), "resultado": retorno}
 
         return resultado
-    
+
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
@@ -68,21 +69,21 @@ def obter(id: int):
     response_model=AdministradorSaida,
     summary=f"Atualiza completamente ou parcialmente um Administrador pelo ID",
 )
-def atualizar(id: int, item: AdministradorEntrada):  # type: ignore
+def atualizar(id: int, administrador: AdministradorEntrada):  # type: ignore
     try:
         parametros = {"p_id": id}
 
-        if item.nome is not None:
-            parametros["p_nome"] = item.nome
-        if item.login is not None:
-            parametros["p_login"] = item.login
-        if item.senha is not None:
-            parametros["p_senha"] = item.senha
-        if item.ativo is not None:
-            parametros["p_ativo"] = item.ativo
+        if administrador.nome is not None:
+            parametros["p_nome"] = administrador.nome
+        if administrador.login is not None:
+            parametros["p_login"] = administrador.login
+        if administrador.senha is not None:
+            parametros["p_senha"] = administrador.senha
+        if administrador.ativo is not None:
+            parametros["p_ativo"] = administrador.ativo
 
         resposta = supabase.rpc("atualizar_administrador", parametros).execute()
-        
-        return resposta.data 
+
+        return resposta.data
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))

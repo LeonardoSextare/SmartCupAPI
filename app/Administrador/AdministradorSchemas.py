@@ -2,9 +2,9 @@ from pydantic import BaseModel
 from typing import Optional
 
 class AdministradorEntrada(BaseModel):
-    nome: str
-    login: str
-    senha: str
+    nome: Optional[str]
+    login: Optional[str]
+    senha: Optional[str]
     ativo: Optional[bool]
 
 class AdministradorSaida(BaseModel):
