@@ -1,0 +1,1 @@
+from .CopoEndpoint import endpoint as copo_endpoint

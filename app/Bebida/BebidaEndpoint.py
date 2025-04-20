@@ -65,7 +65,7 @@ def obter(id: int):
     response_model=BebidaSaida,
     summary=f"Atualiza completamente ou parcialmente uma bebida pelo ID",
 )
-def atualizar(id: int, bebida: BebidaEntradaPatch):  # type: ignore
+def atualizar(id: int, bebida: BebidaEntradaPatch):
     try:
         params = {"p_id": id}
 
