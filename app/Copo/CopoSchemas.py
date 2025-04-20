@@ -11,11 +11,11 @@ class CopoEntrada(BaseModel):
 
 
 class CopoEntradaPatch(BaseModel):
-    capacidade: Optional[float]
-    codigo_nfc: Optional[str]
-    permite_alcool: Optional[bool]
-    ativo: Optional[bool]
-    cliente_id: Optional[int]
+    capacidade: Optional[float] = None
+    codigo_nfc: Optional[str] = None
+    permite_alcool: Optional[bool] = None
+    ativo: Optional[bool] = None
+    cliente_id: Optional[int] = None
 
 
 class ClienteSaida(BaseModel):
