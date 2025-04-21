@@ -8,10 +8,10 @@ class AdministradorEntrada(BaseModel):
 
 
 class AdministradorEntradaPatch(BaseModel):
-    nome: Optional[str]
-    login: Optional[str]
-    senha: Optional[str]
-    ativo: Optional[bool]
+    nome: Optional[str] = None
+    login: Optional[str] = None
+    senha: Optional[str] = None
+    ativo: Optional[bool] = None
 
 class AdministradorSaida(BaseModel):
     id: int

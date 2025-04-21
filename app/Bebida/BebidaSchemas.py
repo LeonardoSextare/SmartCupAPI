@@ -8,13 +8,14 @@ class BebidaEntrada(BaseModel):
     preco: float
     alcolica: bool
     descricao: str
-    
+
+
 class BebidaEntradaPatch(BaseModel):
-    nome: Optional[str]
-    preco: Optional[float]
-    alcolica: Optional[bool]
-    ativo: Optional[bool]
-    descricao: Optional[str]
+    nome: Optional[str] = None
+    preco: Optional[float] = None
+    alcolica: Optional[bool] = None
+    ativo: Optional[bool] = None
+    descricao: Optional[str] = None
 
 
 class BebidaSaida(BaseModel):
