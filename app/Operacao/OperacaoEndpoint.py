@@ -1,15 +1,8 @@
 from fastapi import APIRouter, HTTPException, status
-from typing import List
 from supabase_api import supabase
-from .OperacaoController import ControllerOperacao
-from .OperacaoModel import OperacaoModel
-from .OperacaoService import OperacaoService
 from .OperacaoSchema import OperacaoSaidaLista, OperacaoSaida, OperacaoEntrada
-from decimal import Decimal
 
 endpoint = APIRouter()
-controller = ControllerOperacao(OperacaoModel, OperacaoService)
-
 
 @endpoint.get(
     "",
