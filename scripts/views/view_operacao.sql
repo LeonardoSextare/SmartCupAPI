@@ -31,7 +31,7 @@ SELECT
         'nome', b.nome,
         'preco', b.preco,
         'descricao', b.descricao,
-        'alcoolica', b.alcolica
+        'alcolica', b.alcolica
     ) AS bebida
 FROM 
     operacao o

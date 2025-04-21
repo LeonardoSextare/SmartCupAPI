@@ -28,29 +28,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
-
--- Obter
-CREATE OR REPLACE FUNCTION obter_cliente_id(
-    p_id INTEGER
-)
-RETURNS cliente AS $$
-DECLARE
-    v_cliente cliente;
-BEGIN
-    SELECT * INTO v_cliente
-    FROM cliente
-    WHERE id = p_id;
-
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'Cliente com ID % não encontrado.', p_id;
-    END IF;
-
-    RETURN v_cliente;
-END;
-$$ LANGUAGE plpgsql;
-
-
 -- Atualizar
 CREATE OR REPLACE FUNCTION atualizar_cliente(
     p_id INTEGER,

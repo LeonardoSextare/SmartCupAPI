@@ -59,45 +59,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- Obter
-CREATE OR REPLACE FUNCTION obter_copo_id(p_id INTEGER)
-RETURNS JSON AS $$
-DECLARE
-    result JSON;
-BEGIN
-    SELECT json_build_object(
-        'id', c.id,
-        'capacidade', c.capacidade,
-        'codigo_nfc', c.codigo_nfc,
-        'ativo', c.ativo,
-        'data_criacao', c.data_criacao,
-        'permite_alcool', c.permite_alcool,
-        'cliente', CASE
-            WHEN cl.id IS NOT NULL THEN json_build_object(
-                'id', cl.id,
-                'nome', cl.nome,
-                'cpf', cl.cpf,
-                'data_nascimento', cl.data_nascimento,
-                'ativo', cl.ativo,
-                'saldo_restante', cl.saldo_restante
-            )
-            ELSE NULL
-        END
-    )
-    INTO result
-    FROM copo c
-    LEFT JOIN cliente cl ON c.cliente_id = cl.id
-    WHERE c.id = p_id;
-
-    IF result IS NULL THEN
-        RAISE EXCEPTION 'Copo com ID % não encontrado.', p_id;
-    END IF;
-
-    RETURN result;
-END;
-$$ LANGUAGE plpgsql;
-
-
 -- Atualizar
 CREATE OR REPLACE FUNCTION atualizar_copo(
     p_id INTEGER,

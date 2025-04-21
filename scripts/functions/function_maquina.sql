@@ -48,41 +48,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION obter_maquina_id(p_id INTEGER)
-RETURNS JSON AS $$
-DECLARE
-    result JSON;
-BEGIN
-    SELECT json_build_object(
-        'id', m.id,
-        'nome', m.nome,
-        'qtd_reservatorio_max', m.qtd_reservatorio_max,
-        'qtd_reservatorio_atual', m.qtd_reservatorio_atual,
-        'ativo', m.ativo,
-        'bebida', CASE
-            WHEN b.id IS NOT NULL THEN json_build_object(
-                'id', b.id,
-                'nome', b.nome,
-                'descricao', b.descricao,
-                'preco', b.preco,
-                'alcolica', b.alcolica,
-                'ativo', b.ativo
-            )
-            ELSE NULL
-        END
-    )
-    INTO result
-    FROM maquina m
-    LEFT JOIN bebida b ON m.bebida_id = b.id
-    WHERE m.id = p_id;
 
-    IF result IS NULL THEN
-        RAISE EXCEPTION 'Máquina com ID % não encontrada.', p_id;
-    END IF;
-
-    RETURN result;
-END;
-$$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION atualizar_maquina(
     p_id INTEGER,

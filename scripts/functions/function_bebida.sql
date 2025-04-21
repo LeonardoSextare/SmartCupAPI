@@ -24,27 +24,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- Obter
-CREATE OR REPLACE FUNCTION obter_bebida_id(
-    p_id INTEGER
-)
-RETURNS bebida AS $$
-DECLARE
-    v_bebida bebida;
-BEGIN
-    SELECT * INTO v_bebida
-    FROM bebida
-    WHERE id = p_id;
-
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'Bebida com ID % não encontrada.', p_id;
-    END IF;
-
-    RETURN v_bebida;
-END;
-$$ LANGUAGE plpgsql;
-
-
 -- Atualizar
 CREATE OR REPLACE FUNCTION atualizar_bebida(
     p_id INTEGER,

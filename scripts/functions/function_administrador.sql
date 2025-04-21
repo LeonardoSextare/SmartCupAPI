@@ -26,28 +26,6 @@ $$ LANGUAGE plpgsql;
 
 
 
--- Obter
-CREATE OR REPLACE FUNCTION obter_administrador_id(
-    p_id INTEGER
-)
-RETURNS administrador AS $$
-DECLARE
-    v_admin administrador;
-BEGIN
-    SELECT *
-    INTO v_admin
-    FROM administrador
-    WHERE id = p_id;
-
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'Administrador com ID % não encontrado.', p_id;
-    END IF;
-
-    RETURN v_admin;
-END;
-$$ LANGUAGE plpgsql;
-
-
 -- Atualizar
 CREATE OR REPLACE FUNCTION atualizar_administrador(
     p_id INTEGER,
