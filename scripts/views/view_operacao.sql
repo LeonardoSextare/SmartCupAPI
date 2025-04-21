@@ -1,48 +1,45 @@
-CREATE OR REPLACE VIEW listar_operacao AS
+CREATE OR REPLACE VIEW listar_operacoes AS
 SELECT 
-  json_build_object(
-    'id', o.id,
-    'data_operacao', o.data_operacao,
-    'saldo_gasto', o.saldo_gasto,
-
-    'cliente', json_build_object(
-      'id', cli.id,
-      'nome', cli.nome,
-      'cpf', cli.cpf,
-      'data_nascimento', cli.data_nascimento,
-      'ativo', cli.ativo,
-      'saldo_restante', cli.saldo_restante
-    ),
-
-    'copo', json_build_object(
-      'id', c.id,
-      'capacidade', c.capacidade,
-      'data_criacao', c.data_criacao,
-      'ativo', c.ativo,
-      'permite_alcool', c.permite_alcool,
-      'codigo_nfc', c.codigo_nfc
-    ),
-
-    'maquina', json_build_object(
-      'id', m.id,
-      'nome', m.nome,
-      'qtd_reservatorio_max', m.qtd_reservatorio_max,
-      'qtd_reservatorio_atual', m.qtd_reservatorio_atual,
-      'ativo', m.ativo
-    ),
-
-    'bebida', json_build_object(
-      'id', b.id,
-      'nome', b.nome,
-      'descricao', b.descricao,
-      'preco', b.preco,
-      'alcolica', b.alcolica,
-      'ativo', b.ativo
-    )
-  ) AS operacoes
-FROM
-  operacao o
-  JOIN cliente cli ON o.cliente_id = cli.id
-  JOIN copo c ON o.copo_id = c.id
-  JOIN maquina m ON o.maquina_id = m.id
-  JOIN bebida b ON o.bebida_id = b.id;
+    o.id AS operacao_id,
+    o.data_operacao,
+    o.saldo_gasto,
+    
+    json_build_object(
+        'id', c.id,
+        'nome', c.nome,
+        'cpf', c.cpf,
+        'saldo', c.saldo_restante,
+        'data_nascimento', c.data_nascimento
+    ) AS cliente,
+    
+    json_build_object(
+        'id', cp.id,
+        'capacidade', cp.capacidade,
+        'codigo_nfc', cp.codigo_nfc,
+        'permite_alcool', cp.permite_alcool
+    ) AS copo,
+    
+    json_build_object(
+        'id', m.id,
+        'nome', m.nome,
+        'qtd_reservatorio_atual', m.qtd_reservatorio_atual,
+        'qtd_reservatorio_max', m.qtd_reservatorio_max
+    ) AS maquina,
+    
+    json_build_object(
+        'id', b.id,
+        'nome', b.nome,
+        'preco', b.preco,
+        'descricao', b.descricao,
+        'alcoolica', b.alcolica
+    ) AS bebida
+FROM 
+    operacao o
+JOIN 
+    cliente c ON o.cliente_id = c.id
+JOIN 
+    copo cp ON o.copo_id = cp.id
+JOIN 
+    maquina m ON o.maquina_id = m.id
+JOIN 
+    bebida b ON o.bebida_id = b.id;

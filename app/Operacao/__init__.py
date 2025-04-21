@@ -1,1 +1,1 @@
-from .OperacaoService import OperacaoService
+from .OperacaoEndpoint import endpoint as operacao_endpoint

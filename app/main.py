@@ -5,11 +5,8 @@ from Administrador import administrador_endpoint
 from Cliente import cliente_endpoint
 from Bebida import bebida_endpoint
 from Copo import copo_endpoint
-from builders.Endpoint import criar_endpoint_dinamicamente
-from models.Maquina import Maquina
-from models.Operacao import Operacao
-from Operacao import OperacaoService
 from Maquina import maquina_endpoint
+from Operacao import operacao_endpoint
 
 
 carregar_env()
@@ -44,4 +41,4 @@ app.include_router(copo_endpoint, prefix="/copo", tags=["Copo"])
 
 app.include_router(maquina_endpoint, prefix="/maquina", tags=["Maquina"])
 
-endpoint_operacao = criar_endpoint_dinamicamente(Operacao, service=OperacaoService())
+app.include_router(operacao_endpoint, prefix="/operacao", tags=["Operacao"])

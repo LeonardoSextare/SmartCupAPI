@@ -1,39 +1,53 @@
-from datetime import datetime
+from datetime import datetime, date
 from pydantic import BaseModel
-from models.Copo import Copo
-from models.Bebida import Bebida
-from models.Maquina import Maquina
-from models.Operacao import Operacao
-from models.Cliente import Cliente
+from typing import Optional
 
 
-class MaquinaSaidaOperacao(BaseModel):
-    nome: str
-    bebida_id: int | Bebida | None = None
-    qtd_reservatorio_max: float
-    qtd_reservatorio_atual: float
-    ativo: bool = True
-    id: int | None = None
-
-class OperacaoEntrada(BaseModel):
-    copo_id: int
-    maquina_id: int
-
-class OperacaoResultado(BaseModel):
+class ClienteSaida(BaseModel):
     id: int
-    saldo_gasto: float
-    data_operacao: datetime
-    cliente: Cliente
-    copo: Copo
-    maquina: Maquina.dic
-    bebida: Bebida
+    nome: str
+    cpf: str
+    saldo: float
+    data_nascimento: date
+
+
+class CopoSaida(BaseModel):
+    id: int
+    capacidade: float
+    codigo_nfc: str
+    permite_alcool: bool
+
+
+class MaquinaSaida(BaseModel):
+    id: int
+    nome: str
+    qtd_reservatorio_atual: float
+    qtd_reservatorio_max: float
+
+
+class BebidaSaida(BaseModel):
+    id: int
+    nome: str
+    preco: float
+    descricao: Optional[str]
+    alcolica: bool
+
 
 class OperacaoSaida(BaseModel):
-    mensagem: str
-    resultado: OperacaoResultado
-    
-class OperacaoSaidaLista(BaseModel):
-    mensagem: str
-    quantidade: int
-    resultado: list[OperacaoResultado]
+    operacao_id: int
+    data_operacao: datetime
+    saldo_gasto: float
+    cliente: ClienteSaida
+    copo: CopoSaida
+    maquina: MaquinaSaida
+    bebida: BebidaSaida
 
+
+class OperacaoSaidaLista(BaseModel):
+    quantidade: int
+    resultado: list[OperacaoSaida]
+
+
+class OperacaoEntrada(BaseModel):
+    maquina_id: int
+    codigo_nfc: str

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 from supabase_api import supabase
-from .ClienteSchemas import ClienteEntrada, ClienteSaida, ClienteSaidaLista
+from .ClienteSchemas import ClienteEntrada, ClienteSaida, ClienteSaidaLista, ClienteEntradaPatch
 
 endpoint = APIRouter()
 
@@ -76,7 +76,7 @@ def obter(id: int):
     response_model=ClienteSaida,
     summary=f"Atualiza completamente ou parcialmente um cliente pelo ID",
 )
-def atualizar(id: int, cliente: ClienteEntrada):  # type: ignore
+def atualizar(id: int, cliente: ClienteEntradaPatch):
     try:
         parametros = {"p_id": id}
 
