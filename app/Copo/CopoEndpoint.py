@@ -63,7 +63,7 @@ def obter(id: int):
 @endpoint.patch(
     "/{id}",
     response_model=CopoSaida,
-    summary=f"Atualiza completamente ou parcialmente um copo pelo ID",
+    summary="Atualiza completamente ou parcialmente um copo pelo ID",
 )
 def atualizar(id: int, copo: CopoEntradaPatch):
     try:

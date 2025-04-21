@@ -11,11 +11,11 @@ class MaquinaEntrada(BaseModel):
 
 
 class MaquinaEntradaPatch(BaseModel):
-    nome: Optional[str]
-    qtd_reservatorio_max: Optional[float]
-    qtd_reservatorio_atual: Optional[float]
-    bebida_id: Optional[int]
-    ativo: Optional[bool]
+    nome: Optional[str] = None
+    qtd_reservatorio_max: Optional[float] = None
+    qtd_reservatorio_atual: Optional[float] = None
+    bebida_id: Optional[int] = None
+    ativo: Optional[bool] = None
 
 
 class BebidaSaida(BaseModel):

@@ -10,11 +10,11 @@ class ClienteEntrada(BaseModel):
 
 
 class ClienteEntradaPatch(BaseModel):
-    nome: Optional[str]
-    cpf: Optional[str]
-    data_nascimento: Optional[date]
-    saldo_restante: Optional[float]
-    ativo: Optional[bool]
+    nome: Optional[str] = None
+    cpf: Optional[str] = None
+    data_nascimento: Optional[date] = None
+    saldo_restante: Optional[float] = None
+    ativo: Optional[bool] = None
 
 
 class ClienteSaida(BaseModel):
