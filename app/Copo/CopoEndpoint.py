@@ -49,15 +49,27 @@ def listar():
 @endpoint.get(
     "/{id}",
     response_model=CopoSaida,
-    summary=f"Obtem um copo pelo ID",
+    summary="Obtém um copo pelo ID",
 )
 def obter(id: int):
     try:
-        resultado = supabase.rpc("obter_copo_id", {"p_id": id}).execute().data
-        return resultado
+        retorno = supabase.table("listar_copo").select("*").eq("id", id).execute().data
 
+        if not retorno:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Copo com ID {id} não encontrado."
+            )
+
+        return retorno[0]
+
+    except HTTPException:
+        raise
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erro interno: {str(e)}"
+        )
 
 
 @endpoint.patch(
